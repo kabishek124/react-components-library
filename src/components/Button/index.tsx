@@ -86,6 +86,8 @@ const StyledButton = styled.button<ButtonProps>`
   ${(props) => props.iconPosition === "right" && `flex-direction : row;`}
 `;
 
+const img = styled.img``;
+
 const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
