@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import Button from "../components/Button";
+// import { ReactComponent as ArrowRightIcon } from "../../assets/images/arrowRight.svg";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -53,5 +54,6 @@ export const Primary: Story = {
     onClick: () => {
       alert("Button clicked");
     },
+    // icon: <ArrowRightIcon />,
   },
 };

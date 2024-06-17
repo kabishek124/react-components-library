@@ -24,7 +24,6 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.5.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-essentials": "^8.1.8",
@@ -36,6 +35,7 @@
     "@storybook/react": "^8.1.8",
     "@storybook/react-webpack5": "^8.1.8",
     "@storybook/test": "^8.1.8",
+    "@svgr/webpack": "^8.1.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "rollup": "^4.18.0",

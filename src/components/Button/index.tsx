@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+// import { ReactComponent as ArrowRightIcon } from "../../assets/images/arrowRight.svg";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ type ButtonProps = {
   textColor?: string;
   variant?: "filled" | "outline" | "ghost";
   hideLabel?: boolean;
+  disabled?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 };
 const StyledButton = styled.button<ButtonProps>`
   padding: ${(props) => {
@@ -73,10 +77,13 @@ const StyledButton = styled.button<ButtonProps>`
     }
   }};
   border-radius: ${(props) => (props.shape === "rounded" ? "20px" : "4px")};
-  cursor: pointer;
-  // &:hover {
-  //   background-color: #0056b3;
-  // }
+  opacity: ${(props) => (props.disabled ? "0.6" : "1")}
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  ${(props) =>
+    props.iconPosition === "left" && `flex-direction : row-reverse;`};
+  ${(props) => props.iconPosition === "right" && `flex-direction : row;`}
 `;
 
 const Button: React.FC<ButtonProps> = ({
@@ -89,6 +96,9 @@ const Button: React.FC<ButtonProps> = ({
   variant,
   label,
   hideLabel,
+  disabled,
+  icon,
+  iconPosition,
 }) => {
   return (
     <StyledButton
@@ -98,8 +108,11 @@ const Button: React.FC<ButtonProps> = ({
       color={color}
       textColor={textColor}
       variant={variant}
+      disabled={disabled}
     >
+      {/* /iconPosition === "left" && <span>{icon}</span>} */}
       {!hideLabel ? label || children : ""}
+      {/* {iconPosition === "right" && ArrowRightIcon} */}
     </StyledButton>
   );
 };
