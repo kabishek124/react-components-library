@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+type ValidationProps = {
+  value: string | RegExp;
+  message: string;
+};
+
 type InputProps = {
   children: React.ReactNode;
   onClick?: () => void;
@@ -8,8 +13,9 @@ type InputProps = {
   type?: "text" | "password" | "number";
   placeholder?: string;
   description?: string;
-  required?: boolean;
+  required?: string;
   disabled?: boolean;
+  pattern?: ValidationProps;
 };
 
 const Wrapper = styled.div`
@@ -21,7 +27,7 @@ const Wrapper = styled.div`
 const Label = styled.label`
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
-//   font-weight: bold;
+  //   font-weight: bold;
 `;
 
 const Description = styled.div`
@@ -41,18 +47,56 @@ const InputBox = styled.input`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  margintop: 0.5rem;
+`;
+
 const Input: React.FC<InputProps> = ({
   label,
   description,
   placeholder,
   type = "text",
-  required = false,
+  required,
+  pattern,
   disabled = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleValidation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (required && !value) {
+      //console.log("Mani");
+      setError(required);
+      return;
+    }
+    // console.log(pattern, "regex");
+    // if (pattern) {
+    //   let regex: RegExp;
+    //   try {
+    //     console.log(pattern.value === "string", "regex99");
+    //     regex =
+    //       typeof pattern.value === "string"
+    //         ? new RegExp(pattern.value)
+    //         : pattern.value;
+    //     console.log(regex, "regex");
+    //   } catch (e) {
+    //     console.error("Invalid regex pattern provided:", pattern.value);
+    //     setError("Invalid pattern");
+    //     return;
+    //   }
+    //   if (!regex.test(value)) {
+    //     setError(pattern.message);
+    //     return;
+    //   }
+    // }
+
+    setError("");
   };
 
   return (
@@ -70,6 +114,7 @@ const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           disabled={disabled}
           pattern={type === "number" ? "\\d*" : undefined}
+          onChange={handleValidation}
         />
         {type === "password" && (
           <span
@@ -87,6 +132,7 @@ const Input: React.FC<InputProps> = ({
         )}
       </div>
       {description && <Description>{description}</Description>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Wrapper>
   );
 };
