@@ -36,7 +36,7 @@ const TextAreaStyle = styled.textarea`
   resize: vertical;
   width: 40%;
   min-height: 150px;
-  height: 150px;
+  max-height: 250px;
   &:focus {
     border-color: #007bff;
   }
