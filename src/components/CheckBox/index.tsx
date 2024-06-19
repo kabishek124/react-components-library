@@ -65,6 +65,7 @@ const CheckBoxStyle = styled.input<CheckBoxProps>`
 const Label = styled.label`
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
+  line-height : 1.454595
   display: inline;
 `;
 
