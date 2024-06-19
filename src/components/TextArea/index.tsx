@@ -40,10 +40,6 @@ const TextAreaStyle = styled.textarea`
   &:focus {
     border-color: #007bff;
   }
-
-  &:disabled {
-    background-color: #f5f5f5;
-  }
 `;
 
 const TextArea: React.FC<TextAreaProps> = ({

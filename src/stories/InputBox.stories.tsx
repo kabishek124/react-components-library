@@ -6,7 +6,7 @@ const meta: Meta<typeof InputBox> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-  }
+  },
 };
 export default meta;
 
