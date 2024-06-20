@@ -15,5 +15,9 @@ type Story = StoryObj<typeof InputBox>;
 export const Primary: Story = {
   args: {
     children: "Hi",
+    description: "Enter Your contact number",
+    label: "Contact Number",
+    placeholder: "Contact Number",
+    type: "text",
   },
 };

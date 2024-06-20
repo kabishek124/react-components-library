@@ -54,6 +54,9 @@ export const Primary: Story = {
     onClick: () => {
       alert("Button clicked");
     },
+    variant: "filled",
+    color: "primary",
+    shape: "square",
     // icon: <ArrowRightIcon />,
   },
 };

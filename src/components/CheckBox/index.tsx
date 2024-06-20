@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 
 type CheckBoxProps = {
   children: React.ReactNode;
@@ -14,9 +14,9 @@ type CheckBoxProps = {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr; // Ensure two columns: one for checkbox, one for label
+  grid-template-columns: auto 1fr; // ensure two columns: one for checkbox, one for label
   align-items: center; // Align items vertically
-  gap: 8px; // Space between the checkbox and label
+  gap: 8px; // Space betwen the checkbox and label
   margin: 0.5rem 0;
 `;
 
