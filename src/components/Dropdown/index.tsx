@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type DropProps = {
@@ -19,6 +19,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
+  position: relative;
 `;
 
 const Label = styled.label`
@@ -32,9 +33,20 @@ const Description = styled.div`
   margin-top: 4px;
 `;
 
+const Placeholder = styled.span`
+  flex-grow: 1;
+  color: #aaa;
+`;
+
+const OptionValue = styled.span`
+  flex-grow: 1;
+  color: #000;
+`;
+
 const DropdownBox = styled.div`
-  position: relative;
-  display: inline-block;
+  top: 100%;
+  display: flex;
+  align-items: center;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -46,17 +58,27 @@ const DropdownBox = styled.div`
 `;
 
 const OptionsList = styled.ul`
+  position: absolute;
+  top: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #fff;
-  position: absolute;
-  width: 20%;
+  width: 113%;
   max-height: 150px;
   overflow-y: auto;
-  z-index: 1000;
+`;
+
+const Icon = styled.span`
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: rotate(-45deg);
+  margin-left: auto;
 `;
 
 const Option = styled.li<{ disabled?: boolean }>`
@@ -76,6 +98,7 @@ const Dropdown: React.FC<DropProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  const mouseRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -90,17 +113,40 @@ const Dropdown: React.FC<DropProps> = ({
     setIsOpen(false);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (mouseRef.current && !mouseRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <Wrapper>
       {label && (
         <Label>
-          {label} {required && <span style={{ color: "green" }}>*</span>}
+          {label} {required && <span style={{ color: "red" }}>*</span>}
         </Label>
       )}
       <DropdownBox onClick={toggleDropdown} tabIndex={0}>
-        {selectedOption
-          ? options?.find((option) => option.label === selectedOption)?.label
-          : placeholder}
+        <Placeholder>
+          {selectedOption ? (
+            <OptionValue>
+              {
+                options?.find((option) => option?.label === selectedOption)
+                  ?.label
+              }
+            </OptionValue>
+          ) : (
+            <Placeholder>{placeholder}</Placeholder>
+          )}
+        </Placeholder>
+        <Icon />
       </DropdownBox>
       {isOpen && (
         <OptionsList>
